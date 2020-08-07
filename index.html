@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>BlackJack</title>
     <link rel="stylesheet" href="css/card-deck-css/css/cardstarter.css">
     <link rel="stylesheet" href="css/style.css">
     <script defer src="js/app.js"></script>
@@ -12,7 +12,23 @@
     <header id="head">S E I &nbsp; B L A C K J A C K</header>
     <main>
         <h2 id="msg">Place your bet!</h2>
-
+        <div id="board">
+            <div id="dealer-cards">
+                <img src="" alt="">
+            </div>
+            <img id="deck" src="css/card-deck-css/images/backs/blue.svg" alt="deck"></img>
+            <div id="player-cards">
+                <img src="" alt="">
+            </div>
+            <p id="money">$100</p>
+        </div>
+        <div id="button-container">
+            <button id="game-button">5</button>
+            <button id="game-button">10</button>
+            <button id="game-button">50</button>
+            <button id="game-button">All In</button>
+        </div>
+        <button id="restart">Restart</button>
     </main>
 </body>
 </html>

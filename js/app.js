@@ -1,6 +1,6 @@
 /*----- constants -----*/
 
-console.log('hello');
+
 
 /*----- app's state (variables) -----*/
 
