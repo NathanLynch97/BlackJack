@@ -5,6 +5,7 @@
 body {
     margin: 0;
     font-family: Helvetica;
+    text-align: center;
 }
 
 #head {
@@ -27,4 +28,7 @@ p {
     text-align: center;
 }
 
+#restart {
+    margin: 50px 0 0 0;
+}
 
