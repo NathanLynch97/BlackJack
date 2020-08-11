@@ -26,5 +26,11 @@ const playerCards = document.getElementById('player-cards');
 
 
 /*----- functions -----*/
+init();
 
-
+function init() {
+    money = 100;
+    playerValue = null;
+    dealerValue = null;
+    render();
+};
