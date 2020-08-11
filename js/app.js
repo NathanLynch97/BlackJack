@@ -32,6 +32,7 @@ const playerCards = document.getElementById('player-cards');
 /*----- event listeners -----*/
 document.getElementById('button-container').addEventListener('click', handlePlay);
 
+document.getElementById('restart').addEventListener('click', restart);
 
 /*----- functions -----*/
 init();
@@ -100,5 +101,9 @@ function dealerPlay() {
 };
 
 function render() {
-    
-}
+
+};
+
+function restart() {
+    init();
+};
