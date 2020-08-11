@@ -3,7 +3,7 @@ const suits = ['s', 'c', 'd', 'h'];
 
 const ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
 
-const masterDeck = buildMasterDeck();
+const masterDeck = buildMasterDeck(); // call function to form our master deck
 
 const dealerMin = 17;
 
@@ -11,22 +11,22 @@ const dealerMin = 17;
 /*----- app's state (variables) -----*/
 let money;
 
-let playerHand;
+let playerHand; // tracks player values
 
-let dealerHand;
+let dealerHand; // tracks computer values
 
-let shuffledDeck;
+let shuffledDeck; // allows us to shuffle a deck and store it
 
-let bet;
+let bet; // tracks user bet for use 
 
 /*----- cached element references -----*/
-const msg = document.getElementById('msg');
+const msg = document.getElementById('msg'); // msg at top
 
-const moneyMsg = document.getElementById('money');
+const moneyMsg = document.getElementById('money'); // money tracker on screen
 
-const dealerCards = document.getElementById('dealer-cards');
+const dealerCards = document.getElementById('dealer-cards'); // dealers visible cards
 
-const playerCards = document.getElementById('player-cards');
+const playerCards = document.getElementById('player-cards'); // player visible cards
 
 
 /*----- event listeners -----*/
@@ -37,7 +37,7 @@ document.getElementById('restart').addEventListener('click', restart);
 /*----- functions -----*/
 init();
 
-function init() {
+function init() { // declare state variables and shuffle deck, then render
     money = 100;
     bet = 0;
     playerHand = null;
@@ -46,7 +46,7 @@ function init() {
     render();
 };
 
-function buildMasterDeck() {
+function buildMasterDeck() { // for each to use every possible value of both arrays to form 52 card deck
     const deck = [];
     suits.forEach(function(suit) {
         ranks.forEach(function(rank) {
@@ -59,7 +59,7 @@ function buildMasterDeck() {
     return deck;
 };
 
-function shuffleDeck() {
+function shuffleDeck() { // copy master deck and create new shuffled version
     const tempDeck = [...masterDeck]
     shuffledDeck = [];
     while(tempDeck.length) {
@@ -68,7 +68,7 @@ function shuffleDeck() {
     }
 };
 
-function handlePlay(e) {
+function handlePlay(e) { // handle click based on inner html of target
     if (e.target.innerText == 'All In') {
         bet = money;
         money = 0;
@@ -104,6 +104,6 @@ function render() {
 
 };
 
-function restart() {
+function restart() { // recall init to reset all state variables and board
     init();
 };
