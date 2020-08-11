@@ -11,11 +11,13 @@ const dealerMin = 17;
 /*----- app's state (variables) -----*/
 let money;
 
-let playerValue;
+let playerHand;
 
-let dealerValue;
+let dealerHand;
 
 let shuffledDeck;
+
+let bet;
 
 /*----- cached element references -----*/
 const msg = document.getElementById('msg');
@@ -28,18 +30,20 @@ const playerCards = document.getElementById('player-cards');
 
 
 /*----- event listeners -----*/
-
+document.getElementById('button-container').addEventListener('click', handlePlay);
 
 
 /*----- functions -----*/
-// init();
+init();
 
-// function init() {
-//     money = 100;
-//     playerValue = null;
-//     dealerValue = null;
-//     render();
-// };
+function init() {
+    money = 100;
+    bet = 0;
+    playerHand = null;
+    dealerHand = null;
+    shuffleDeck();
+    render();
+};
 
 function buildMasterDeck() {
     const deck = [];
@@ -52,4 +56,49 @@ function buildMasterDeck() {
         });
     });
     return deck;
+};
+
+function shuffleDeck() {
+    const tempDeck = [...masterDeck]
+    shuffledDeck = [];
+    while(tempDeck.length) {
+        const rndIdx = Math.floor(Math.random() * tempDeck.length);
+        shuffledDeck.push(tempDeck.splice(rndIdx, 1) [0]);
+    }
+};
+
+function handlePlay(e) {
+    if (e.target.innerText == 'All In') {
+        bet = money;
+        money = 0;
+        dealCards();
+    } else if (!isNaN(e.target.innerText)) {
+        bet = e.target.innerText;
+        money = money - bet;
+        dealCards();
+    } else if (e.target.innerText == 'Hit') {
+        hit();
+    } else if (e.target.innerText == 'Stay') {
+        dealerPlay();
+    } else if (e.target.innerText == 'Double') {
+        bet *= 2;
+    } else {
+        return;
+    }
+};
+
+function dealCards() {
+
+};
+
+function hit() {
+
+};
+
+function dealerPlay() {
+
+};
+
+function render() {
+    
 }
