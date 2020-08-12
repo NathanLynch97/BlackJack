@@ -87,20 +87,22 @@ function handlePlay(e) { // handle click based on inner html of target
     }
 };
 
-function dealCards() {
+function dealCards() { // deal 2 cards from shuffled deck into playerHand and render to page
     playerHand = shuffledDeck.splice(-2, 2);
     dealerHand = [shuffledDeck.pop(), null];
     render();
 };
 
-function hit() {
+function hit() { // add 1 card to playerHand from shuffledDeck, render
     playerHand.push(shuffledDeck.pop());
+    winner();
     render();
 };
 
-function dealerPlay() {
+function dealerPlay() { // if dealer has 1 face down card, pop it, add 1 card render
     if (dealerHand.indexOf(null) == 1) {dealerHand.pop()};
     dealerHand.push(shuffledDeck.pop());
+    winner();
     render();
 };
 
@@ -109,7 +111,12 @@ function winner() {
 };
 
 function render() {
-
+    if (playerHand == null) {
+        playerCards.innerHTML = `<div class="card back-blue"></div><div class="card back-blue"></div>`
+    }    
+    if (dealerHand == null) {
+        dealerCards.innerHTML = `<div class="card back-blue"></div><div class="card back-blue"></div>`
+    }
 };
 
 function restart() { // recall init to reset all state variables and board
