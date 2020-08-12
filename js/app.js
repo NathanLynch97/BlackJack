@@ -1,7 +1,7 @@
 /*----- constants -----*/
 const suits = ['s', 'c', 'd', 'h'];
 
-const ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+const ranks = ['02', '03', '04', '05', '06', '07', '08', '09', '10', 'J', 'Q', 'K', 'A'];
 
 const masterDeck = buildMasterDeck(); // call function to form our master deck
 
@@ -17,6 +17,8 @@ let dealerHand; // tracks computer values
 let shuffledDeck; // allows us to shuffle a deck and store it
 
 let bet; // tracks user bet for use 
+
+let win; // win logic tracker
 
 /*----- cached element references -----*/
 const msg = document.getElementById('msg'); // msg at top
@@ -41,6 +43,7 @@ function init() { // declare state variables and shuffle deck, then render
     bet = 0;
     playerHand = null;
     dealerHand = null;
+    win = null;
     shuffleDeck();
     render();
 };
@@ -71,10 +74,12 @@ function handlePlay(e) { // handle click based on inner html of target
     if (e.target.innerText == 'All In') {
         bet = money;
         money = 0;
+        changeButtons();
         dealCards();
     } else if (!isNaN(e.target.innerText)) {
         bet = e.target.innerText;
         money = money - bet;
+        changeButtons();
         dealCards();
     } else if (e.target.innerText == 'Hit') {
         hit();
@@ -107,7 +112,19 @@ function dealerPlay() { // if dealer has 1 face down card, pop it, add 1 card, c
 };
 
 function winner() {
-
+    let playerValue = playerHand.reduce(function(acc, card) {
+        acc += card.value;
+    }, 0);
+    let dealerValue = dealerHand.reduce(function(acc, card) {
+        acc += card.value;
+    }, 0);
+    if (dealerHand.indexOf(null) == 1) {
+        win = null;
+    } else if (playerValue <= dealerValue || playerValue > 21) {
+        win = 'dealer';
+    } else {
+        win = 'player';
+    }
 };
 
 function render() { // render all values to page
@@ -117,7 +134,12 @@ function render() { // render all values to page
     if (dealerHand == null) { // render strarting blank cards for dealer
         dealerCards.innerHTML = `<div class="card back-blue"></div><div class="card back-blue"></div>`
     }
+
 };
+
+function changeButtons() {
+
+}
 
 function restart() { // recall init to reset all state variables and board
     init();
