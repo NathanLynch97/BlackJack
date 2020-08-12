@@ -7,7 +7,6 @@ const masterDeck = buildMasterDeck(); // call function to form our master deck
 
 const dealerMin = 17;
 
-
 /*----- app's state (variables) -----*/
 let money;
 
@@ -89,14 +88,23 @@ function handlePlay(e) { // handle click based on inner html of target
 };
 
 function dealCards() {
-
+    playerHand = shuffledDeck.splice(-2, 2);
+    dealerHand = [shuffledDeck.pop(), null];
+    render();
 };
 
 function hit() {
-
+    playerHand.push(shuffledDeck.pop());
+    render();
 };
 
 function dealerPlay() {
+    if (dealerHand.indexOf(null) == 1) {dealerHand.pop()};
+    dealerHand.push(shuffledDeck.pop());
+    render();
+};
+
+function winner() {
 
 };
 
