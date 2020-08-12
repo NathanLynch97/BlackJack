@@ -93,13 +93,13 @@ function dealCards() { // deal 2 cards from shuffled deck into playerHand and re
     render();
 };
 
-function hit() { // add 1 card to playerHand from shuffledDeck, render
+function hit() { // add 1 card to playerHand from shuffledDeck, check win, render
     playerHand.push(shuffledDeck.pop());
     winner();
     render();
 };
 
-function dealerPlay() { // if dealer has 1 face down card, pop it, add 1 card render
+function dealerPlay() { // if dealer has 1 face down card, pop it, add 1 card, check win, render
     if (dealerHand.indexOf(null) == 1) {dealerHand.pop()};
     dealerHand.push(shuffledDeck.pop());
     winner();
@@ -110,11 +110,11 @@ function winner() {
 
 };
 
-function render() {
-    if (playerHand == null) {
+function render() { // render all values to page
+    if (playerHand == null) { // render starting blank cards for player
         playerCards.innerHTML = `<div class="card back-blue"></div><div class="card back-blue"></div>`
     }    
-    if (dealerHand == null) {
+    if (dealerHand == null) { // render strarting blank cards for dealer
         dealerCards.innerHTML = `<div class="card back-blue"></div><div class="card back-blue"></div>`
     }
 };
