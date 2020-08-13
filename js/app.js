@@ -136,16 +136,34 @@ function winner() {
 };
 
 function render() { // render all values to page
+    moneyMsg.innerHTML = `$${money}`;
     if (playerHand == null) { // render starting blank cards for player
-        playerCards.innerHTML = `<div class="card back-blue"></div><div class="card back-blue"></div>`
-    }    
+        playerCards.innerHTML = `<div class="card back-blue"></div><div class="card back-blue"></div>`;
+    } else {
+        playerCards.innerHTML = '';
+        const cardsHtml = playerHand.reduce(function(html, card) {
+            return html + `<div class="card ${card.face}"></div>`
+        }, '');
+        playerCards.innerHTML = cardsHtml;
+    }
     if (dealerHand == null) { // render strarting blank cards for dealer
-        dealerCards.innerHTML = `<div class="card back-blue"></div><div class="card back-blue"></div>`
+        dealerCards.innerHTML = `<div class="card back-blue"></div><div class="card back-blue"></div>`;
+    } else if (dealerHand.indexOf(null) == 1) {
+        firstCard = dealerHand[0].face;
+        dealerCards.innerHTML = `<div class="card ${firstCard}"></div><div class="card back-blue"></div>`;
+    } else {
+        dealerCards.innerHTML = '';
+        const cardsHtml = dealerHand.reduce(function(html, card) {
+            return html + `<div class="card ${card.face}"></div>`
+        }, '');
+        dealerCards.innerHTML = cardsHtml;
     }
 };
 
 function changeButtons() {
-
+    if (bet !== 0) {
+        
+    }
 }
 
 function restart() { // recall init to reset all state variables and board
