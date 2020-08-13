@@ -12,9 +12,9 @@ let playerHand; // tracks player hand
 
 let playerValue; // tracks value of cards
 
-let dealerValue; // tracks value of cards
-
 let dealerHand; // tracks computer hand
+
+let dealerValue; // tracks value of cards
 
 let shuffledDeck; // allows us to shuffle a deck and store it
 
@@ -26,6 +26,8 @@ let win; // win logic tracker
 const msg = document.getElementById('msg'); // msg at top
 
 const moneyMsg = document.getElementById('money'); // money tracker on screen
+
+const betMsg = document.getElementById('bet');
 
 const dealerCards = document.getElementById('dealer-cards'); // dealers visible cards
 
@@ -80,21 +82,30 @@ function shuffleDeck() { // copy master deck and create new shuffled version
 
 function handlePlay(e) { // handle click based on inner html of target
     if (e.target.innerText == 'All In') {
+        if (money == 0) return;
         bet = money;
         money = 0;
         changeButtons();
         dealCards();
     } else if (!isNaN(e.target.innerText)) {
         bet = e.target.innerText;
+        if (money < bet) {
+            bet = 0;
+            return;
+        }
         money = money - bet;
         changeButtons();
         dealCards();
     } else if (e.target.innerText == 'Hit') {
         hit();
     } else if (e.target.innerText == 'Stay') {
+        winner();
         dealerPlay();
     } else if (e.target.innerText == 'Double') {
+        if (money == 0) return;
+        money -= bet;
         bet *= 2;
+        render();
     } else {
         return;
     }
@@ -123,26 +134,33 @@ function dealerPlay() { // if dealer has 1 face down card, pop it, add 1 card, c
 
 function winner() {
     if (dealerHand.indexOf(null) == 1) {
+        dealerValue = 0;
         dealerValue = dealerHand[0].value;
     } else {
-        dealerValue = dealerHand.reduce(function(acc, card) {
-            acc += card.value;
-        }, 0);
+        dealerValue = 0;
+        dealerHand.forEach(function(card) {
+            dealerValue += card.value;
+        });
     }
-    playerValue = playerHand.reduce(function(acc, card) {
-        acc += card.value;
-    }, 0);
-    if (dealerHand.indexOf(null) == 1) {
+    playerValue = 0;
+    playerHand.forEach(function(card) {
+        playerValue += card.value;
+    })
+    // playerValue = playerHand.reduce(function(acc, card) {
+    //     acc += card.value;
+    // });
+    if (playerValue > 21) {
+        win = "Dealer";
+    } else if (dealerHand.indexOf(null) == 1) {
         win = null;
-    } else if (playerValue <= dealerValue || playerValue > 21) {
-        win = 'dealer';
+    } else if (dealerValue >= playerValue && dealerValue <= 21) {
+        win = "Dealer";
     } else {
-        win = 'player';
+        win = "Player";
     }
 };
 
 function render() { // render all values to page
-    moneyMsg.innerHTML = `$${money}`;
     if (playerHand == null) { // render starting blank cards for player
         playerCards.innerHTML = `<div class="card back-blue"></div><div class="card back-blue"></div>`;
     } else {
@@ -164,6 +182,34 @@ function render() { // render all values to page
         }, '');
         dealerCards.innerHTML = cardsHtml;
     }
+    renderMsgs();
+    changeButtons();
+};
+
+function renderMsgs() {
+    if (win == "Player") {
+        msg.innerHTML = `${win} is the winner! Bet to play again`;
+        money += (bet * 2);
+        bet = 0;
+        win = null;
+        dealerValue = 0;
+        playerValue = 0;
+    } else if (win == "Dealer") {
+        msg.innerHTML = `${win} is the winner! Bet to play again`;
+        if (money == 0) {
+            msg.innerHTML = `${win} is the winner! Restart?`;
+        }
+        bet = 0;
+        win = null;
+        dealerValue = 0;
+        playerValue = 0;
+    } else if (bet == 0) {
+        msg.innerHTML = `Place your bet!`;
+    } else {
+        msg.innerHTML = `Make your move`;
+    }
+    betMsg.innerHTML = `Bet: $${bet}`;
+    moneyMsg.innerHTML = `$${money}`;
 };
 
 function changeButtons() {
@@ -174,7 +220,7 @@ function changeButtons() {
         betButtons.classList.remove("hidden");
         playButtons.classList.add("hidden");
     }
-}
+};
 
 function restart() { // recall init to reset all state variables and board
     init();

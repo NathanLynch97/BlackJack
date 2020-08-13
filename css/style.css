@@ -6,6 +6,7 @@ body {
     margin: 0;
     font-family: Helvetica;
     text-align: center;
+    background-color: green;
 }
 
 #head {
@@ -26,6 +27,7 @@ main {
 
 p {
     text-align: center;
+    font-size: 25px;
 }
 
 #restart {
