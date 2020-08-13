@@ -22,6 +22,8 @@ let bet; // tracks user bet for use
 
 let win; // win logic tracker
 
+let double;
+
 /*----- cached element references -----*/
 const msg = document.getElementById('msg'); // msg at top
 
@@ -102,7 +104,8 @@ function handlePlay(e) { // handle click based on inner html of target
         winner();
         dealerPlay();
     } else if (e.target.innerText == 'Double') {
-        if (money == 0) return;
+        if (money == 0 || double) return;
+        double = true;
         money -= bet;
         bet *= 2;
         render();
@@ -159,23 +162,23 @@ function winner() {
 
 function render() { // render all values to page
     if (playerHand == null) { // render starting blank cards for player
-        playerCards.innerHTML = `<div class="card back-blue"></div><div class="card back-blue"></div>`;
+        playerCards.innerHTML = `<div class="card large back-blue"></div><div class="card large back-blue"></div>`;
     } else {
         playerCards.innerHTML = '';
         const cardsHtml = playerHand.reduce(function(html, card) {
-            return html + `<div class="card ${card.face}"></div>`
+            return html + `<div class="card large ${card.face}"></div>`
         }, '');
         playerCards.innerHTML = cardsHtml;
     }
     if (dealerHand == null) { // render strarting blank cards for dealer
-        dealerCards.innerHTML = `<div class="card back-blue"></div><div class="card back-blue"></div>`;
+        dealerCards.innerHTML = `<div class="card large back-blue"></div><div class="card large back-blue"></div>`;
     } else if (dealerHand.indexOf(null) == 1) {
         firstCard = dealerHand[0].face;
-        dealerCards.innerHTML = `<div class="card ${firstCard}"></div><div class="card back-blue"></div>`;
+        dealerCards.innerHTML = `<div class="card large ${firstCard}"></div><div class="card large back-blue"></div>`;
     } else {
         dealerCards.innerHTML = '';
         const cardsHtml = dealerHand.reduce(function(html, card) {
-            return html + `<div class="card ${card.face}"></div>`
+            return html + `<div class="card large ${card.face}"></div>`
         }, '');
         dealerCards.innerHTML = cardsHtml;
     }
