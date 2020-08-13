@@ -5,8 +5,6 @@ const ranks = ['02', '03', '04', '05', '06', '07', '08', '09', '10', 'J', 'Q', '
 
 const masterDeck = buildMasterDeck(); // call function to form our master deck
 
-const dealerMin = 17;
-
 /*----- app's state (variables) -----*/
 let money;
 
@@ -33,6 +31,9 @@ const dealerCards = document.getElementById('dealer-cards'); // dealers visible 
 
 const playerCards = document.getElementById('player-cards'); // player visible cards
 
+const betButtons = document.getElementById('bet-buttons'); // cache buttons to change
+
+const playButtons = document.getElementById('play-buttons'); // starts invisible
 
 /*----- event listeners -----*/
 document.getElementById('button-container').addEventListener('click', handlePlay);
@@ -51,6 +52,7 @@ function init() { // declare state variables and shuffle deck, then render
     dealerValue = null;
     win = null;
     shuffleDeck();
+    changeButtons();
     render();
 };
 
@@ -120,10 +122,14 @@ function dealerPlay() { // if dealer has 1 face down card, pop it, add 1 card, c
 };
 
 function winner() {
+    if (dealerHand.indexOf(null) == 1) {
+        dealerValue = dealerHand[0].value;
+    } else {
+        dealerValue = dealerHand.reduce(function(acc, card) {
+            acc += card.value;
+        }, 0);
+    }
     playerValue = playerHand.reduce(function(acc, card) {
-        acc += card.value;
-    }, 0);
-    dealerValue = dealerHand.reduce(function(acc, card) {
         acc += card.value;
     }, 0);
     if (dealerHand.indexOf(null) == 1) {
@@ -162,7 +168,11 @@ function render() { // render all values to page
 
 function changeButtons() {
     if (bet !== 0) {
-        
+        betButtons.classList.add("hidden");
+        playButtons.classList.remove("hidden");
+    } else {
+        betButtons.classList.remove("hidden");
+        playButtons.classList.add("hidden");
     }
 }
 
