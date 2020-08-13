@@ -10,9 +10,13 @@ const dealerMin = 17;
 /*----- app's state (variables) -----*/
 let money;
 
-let playerHand; // tracks player values
+let playerHand; // tracks player hand
 
-let dealerHand; // tracks computer values
+let playerValue; // tracks value of cards
+
+let dealerValue; // tracks value of cards
+
+let dealerHand; // tracks computer hand
 
 let shuffledDeck; // allows us to shuffle a deck and store it
 
@@ -43,6 +47,8 @@ function init() { // declare state variables and shuffle deck, then render
     bet = 0;
     playerHand = null;
     dealerHand = null;
+    playerValue = null;
+    dealerValue = null;
     win = null;
     shuffleDeck();
     render();
@@ -106,16 +112,18 @@ function hit() { // add 1 card to playerHand from shuffledDeck, check win, rende
 
 function dealerPlay() { // if dealer has 1 face down card, pop it, add 1 card, check win, render
     if (dealerHand.indexOf(null) == 1) {dealerHand.pop()};
-    dealerHand.push(shuffledDeck.pop());
-    winner();
+    while (dealerValue < 17) {
+        dealerHand.push(shuffledDeck.pop());
+        winner();
+    }
     render();
 };
 
 function winner() {
-    let playerValue = playerHand.reduce(function(acc, card) {
+    playerValue = playerHand.reduce(function(acc, card) {
         acc += card.value;
     }, 0);
-    let dealerValue = dealerHand.reduce(function(acc, card) {
+    dealerValue = dealerHand.reduce(function(acc, card) {
         acc += card.value;
     }, 0);
     if (dealerHand.indexOf(null) == 1) {
@@ -134,7 +142,6 @@ function render() { // render all values to page
     if (dealerHand == null) { // render strarting blank cards for dealer
         dealerCards.innerHTML = `<div class="card back-blue"></div><div class="card back-blue"></div>`
     }
-
 };
 
 function changeButtons() {
