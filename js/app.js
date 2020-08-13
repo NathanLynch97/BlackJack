@@ -146,9 +146,6 @@ function winner() {
     playerHand.forEach(function(card) {
         playerValue += card.value;
     })
-    // playerValue = playerHand.reduce(function(acc, card) {
-    //     acc += card.value;
-    // });
     if (playerValue > 21) {
         win = "Dealer";
     } else if (dealerHand.indexOf(null) == 1) {
