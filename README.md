@@ -3,9 +3,12 @@ Black Jack is a game played with a deck of cards. It consists of a dealer and a 
 ## Getting Started
 You can play [here](https://nathanlynch97.github.io/BlackJack/)
 ## Screenshots
-![On Open](https://i.imgur.com/SvJUBPR.png)
-![Bet](https://i.imgur.com/3rhUIPg.png)
-![Winner](https://i.imgur.com/4NUM9fs.png)
+![On Open](https://i.imgur.com/V6pJ748.png)
+On open, render 2 hidden cards for dealer and player
+![Bet](https://i.imgur.com/UFrf9tZ.png)
+The player goes through play first after bet. At any point if player busts, dealer wins.
+![Winner](https://i.imgur.com/TPpPDbT.png)
+Dealer will hit until their value is at least 17. Only happens after player has pressed the stay button
 ## Technology
 - HTML
 - CSS
