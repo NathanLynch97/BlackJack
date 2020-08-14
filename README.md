@@ -2,11 +2,6 @@
 Black Jack is a game played with a deck of cards. It consists of a dealer and a player who each get 2 cards to start. The player gets to see one of the dealer's cards and must try to reach 21, or as close as possible, without going over. The dealer wins on ties and if the player goes over.
 ## Getting Started
 You can play [here](https://nathanlynch97.github.io/BlackJack/)
-## Wireframe
-![Pre-bet](https://i.imgur.com/2EPnmEn.jpg)
-This was my idea for the look pre-code. Eventually I would like to style it better and include more HTML elements to make it look better, along with animation and sound.
-![Post-bet](https://i.imgur.com/6jRGwrS.jpg)
-This is after the bet has been placed by the player. I have this all in my final product except for a deck element that gets pushed to the edge of the board.
 ## Screenshots
 ![On Open](https://i.imgur.com/V6pJ748.png)
 On open, render 2 hidden cards for dealer and player
