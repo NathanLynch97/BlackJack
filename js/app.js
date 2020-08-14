@@ -1,4 +1,5 @@
 /*----- constants -----*/
+// hold vlues that will remain the same throughout the program
 const suits = ['s', 'c', 'd', 'h'];
 
 const ranks = ['02', '03', '04', '05', '06', '07', '08', '09', '10', 'J', 'Q', 'K', 'A'];
@@ -6,6 +7,7 @@ const ranks = ['02', '03', '04', '05', '06', '07', '08', '09', '10', 'J', 'Q', '
 const masterDeck = buildMasterDeck(); // call function to form our master deck
 
 /*----- app's state (variables) -----*/
+// declare variables to track the state of the game
 let money; // holds player money
 
 let playerHand; // tracks player hand
@@ -25,6 +27,7 @@ let win; // win logic tracker
 let double; // will track if double has been pressed
 
 /*----- cached element references -----*/
+// cache elements that will be called more than once
 const msg = document.getElementById('msg'); // msg at top
 
 const moneyMsg = document.getElementById('money'); // money tracker on screen
@@ -40,11 +43,13 @@ const betButtons = document.getElementById('bet-buttons'); // cache buttons to c
 const playButtons = document.getElementById('play-buttons'); // starts invisible
 
 /*----- event listeners -----*/
+// Add event listeners to page to track where a user clicks
 document.getElementById('button-container').addEventListener('click', handlePlay); // listener on all 'game' buttons
 
 document.getElementById('restart').addEventListener('click', restart); // listener for restart button
 
 /*----- functions -----*/
+// declare all functions used for running the app
 init();
 
 function init() { // declare state variables and shuffle deck, then render
