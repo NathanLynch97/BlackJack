@@ -33,6 +33,11 @@ p {
 
 #bet {
     font-size: 20px;
+    color: darkRed;
+}
+
+#money {
+    color: white;
 }
 
 #restart {
@@ -41,4 +46,50 @@ p {
 
 .hidden {
     display: none;
+}
+
+#bet-button1 {
+    background-color: white;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+}
+
+#bet-button2 {
+    background-color: royalBlue;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+}
+
+#bet-button3 {
+    background-color: lightslategray;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+}
+
+#bet-button4 {
+    background-color: red;
+    height: 50px;
+    width: 50px;
+}
+
+#play-button1 {
+    background-color: lightgreen;
+    height: 50px;
+    width: 50px;
+}
+
+#play-button2 {
+    background-color: lightblue;
+    height: 50px;
+    width: 50px;
+}
+
+#play-button3 {
+    background-color: red;
+    height: 50px;
+    width: 60px;
+    text-align: left;
 }

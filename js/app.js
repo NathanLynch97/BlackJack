@@ -6,7 +6,7 @@ const ranks = ['02', '03', '04', '05', '06', '07', '08', '09', '10', 'J', 'Q', '
 const masterDeck = buildMasterDeck(); // call function to form our master deck
 
 /*----- app's state (variables) -----*/
-let money;
+let money; // holds player money
 
 let playerHand; // tracks player hand
 
@@ -22,14 +22,14 @@ let bet; // tracks user bet for use
 
 let win; // win logic tracker
 
-let double;
+let double; // will track if double has been pressed
 
 /*----- cached element references -----*/
 const msg = document.getElementById('msg'); // msg at top
 
 const moneyMsg = document.getElementById('money'); // money tracker on screen
 
-const betMsg = document.getElementById('bet');
+const betMsg = document.getElementById('bet'); // cache player bet
 
 const dealerCards = document.getElementById('dealer-cards'); // dealers visible cards
 
@@ -40,9 +40,9 @@ const betButtons = document.getElementById('bet-buttons'); // cache buttons to c
 const playButtons = document.getElementById('play-buttons'); // starts invisible
 
 /*----- event listeners -----*/
-document.getElementById('button-container').addEventListener('click', handlePlay);
+document.getElementById('button-container').addEventListener('click', handlePlay); // listener on all 'game' buttons
 
-document.getElementById('restart').addEventListener('click', restart);
+document.getElementById('restart').addEventListener('click', restart); // listener for restart button
 
 /*----- functions -----*/
 init();
@@ -82,8 +82,8 @@ function shuffleDeck() { // copy master deck and create new shuffled version
     }
 };
 
-function handlePlay(e) { // handle click based on inner html of target
-    if (e.target.innerText == 'All In') {
+function handlePlay(e) { // handle click on target, will track all 'game' buttons and execute code based on inner HTML
+    if (e.target.innerText == 'All In') { 
         if (money == 0) return;
         bet = money;
         money = 0;
@@ -135,7 +135,7 @@ function dealerPlay() { // if dealer has 1 face down card, pop it, add 1 card, c
     render();
 };
 
-function winner() {
+function winner() { // convert cards to values and compare for winner 
     if (dealerHand.indexOf(null) == 1) {
         dealerValue = 0;
         dealerValue = dealerHand[0].value;
@@ -163,7 +163,7 @@ function winner() {
 function render() { // render all values to page
     if (playerHand == null) { // render starting blank cards for player
         playerCards.innerHTML = `<div class="card large back-blue"></div><div class="card large back-blue"></div>`;
-    } else {
+    } else { // adding div with image class to cards div
         playerCards.innerHTML = '';
         const cardsHtml = playerHand.reduce(function(html, card) {
             return html + `<div class="card large ${card.face}"></div>`
@@ -175,7 +175,7 @@ function render() { // render all values to page
     } else if (dealerHand.indexOf(null) == 1) {
         firstCard = dealerHand[0].face;
         dealerCards.innerHTML = `<div class="card large ${firstCard}"></div><div class="card large back-blue"></div>`;
-    } else {
+    } else { // adding div with image class to cards div
         dealerCards.innerHTML = '';
         const cardsHtml = dealerHand.reduce(function(html, card) {
             return html + `<div class="card large ${card.face}"></div>`
@@ -186,7 +186,7 @@ function render() { // render all values to page
     changeButtons();
 };
 
-function renderMsgs() {
+function renderMsgs() { // based on winner and bet status, render messages to page and update variables for new rounds
     if (win == "Player") {
         msg.innerHTML = `${win} is the winner! Bet to play again`;
         money += (bet * 2);
@@ -194,6 +194,7 @@ function renderMsgs() {
         win = null;
         dealerValue = 0;
         playerValue = 0;
+        shuffleDeck(); 
     } else if (win == "Dealer") {
         msg.innerHTML = `${win} is the winner! Bet to play again`;
         if (money == 0) {
@@ -203,6 +204,7 @@ function renderMsgs() {
         win = null;
         dealerValue = 0;
         playerValue = 0;
+        shuffleDeck();
     } else if (bet == 0) {
         msg.innerHTML = `Place your bet!`;
     } else {
@@ -212,7 +214,7 @@ function renderMsgs() {
     moneyMsg.innerHTML = `$${money}`;
 };
 
-function changeButtons() {
+function changeButtons() { // change which buttons are shown on page based on player bet
     if (bet !== 0) {
         betButtons.classList.add("hidden");
         playButtons.classList.remove("hidden");
